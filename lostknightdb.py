@@ -31,7 +31,7 @@ class Spieler(SQLObject):
     Status_json = StringCol(default='{}')
     PositionX = IntCol()
     PositionY = IntCol()
-    Map = StringCol()
+    Dungeon = StringCol()
 
     # from JSON to Dict
     @property
