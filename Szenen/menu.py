@@ -32,10 +32,10 @@ class Menu(Szene):
                     pygame.quit()
                     sys.exit()
 
-    def update(self):
+    def update(self, dt):
         pass
 
-    def draw(self):
+    def draw(self, screen):
         self.display.fill(self.s.background_color)
 
         for button in self.buttons:

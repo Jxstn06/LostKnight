@@ -1,9 +1,4 @@
 class Szene:
-    def handle_events(self, event):
-        pass
-
-    def update(self):
-        pass
-
-    def draw(self):
-        pass
+    def handle_events(self, event): pass
+    def update(self, dt): pass
+    def draw(self, screen): pass

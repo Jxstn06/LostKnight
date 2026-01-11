@@ -7,9 +7,6 @@ class Room:
     def __init__(self, typ='Leer', spieler=None):
         self.typ = typ
         self.spieler = spieler
-        self.spieler_x = self.spieler.PositionX
-        self.spieler_y = self.spieler.PositionY
-
         self.s = Settings()
 
         # Sorgt dafür, dass die Raumegröße immer ungrade ist.
@@ -17,13 +14,14 @@ class Room:
         self.y = self.s.raumy if self.s.raumy % 2 else self.s.raumy + 1
         self.visited = False
         self.clear = False
+        self.spieler_pos = None
 
         self.grid = [[Feld(x, y, 'Wand') for x in range(self.x)] for y in range(self.y)]
         self.entry_point = {
-            'top': (self.x//2, 0),
-            'bottom': (self.x//2, self.y-1),
-            'left': (0, self.y//2),
-            'right': (self.x-1, self.y//2)
+            'top': (self.x // 2, 0),
+            'bottom': (self.x // 2, self.y - 1),
+            'left': (0, self.y // 2),
+            'right': (self.x - 1, self.y // 2)
         }
         self.generate_room()
 
@@ -35,6 +33,14 @@ class Room:
 
         for direction, (ex, ey) in self.entry_point.items():
             self.grid[ey][ex].feldtyp = 'Entry'
+
+    def spieler_movement(self, dx, dy):
+        x, y = self.spieler_pos
+        nx, ny = x + dx, y + dy
+        if 0 <= nx < self.x and 0 <= ny < self.y:
+            feld = self.grid[ny][nx]
+            if feld.feldtyp in ['Entry', 'Weg']:
+                self.spieler_pos = (nx, ny)
 
     def to_string(self):
         lines = []
@@ -55,3 +61,4 @@ class Room:
 
             lines.append(line)
         return '\n'.join(lines)
+

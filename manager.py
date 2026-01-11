@@ -1,12 +1,17 @@
 class Manager:
-    def __init__(self, szene):
-        self.szene = szene
+    def __init__(self):
+        self.c_szene = None
 
-        self.spieler = None
-        self.map = None
+    def switch_szene(self, new_szene):
+        self.c_szene = new_szene
 
-    def get_szene(self):
-        return self.szene
+    def handle_events(self, event):
+        self.c_szene.handle_events(event)
 
-    def set_szene(self, szene):
-        self.szene = szene
+    def update(self, dt):
+        if self.c_szene:
+            self.c_szene.update(dt)
+
+    def draw(self, screen):
+        if self.c_szene:
+            self.c_szene.draw(screen)
