@@ -29,8 +29,9 @@ class Spieler(SQLObject):
     Luck = IntCol(default=3)
     Initiative = IntCol(default=5)
     Status_json = StringCol(default='{}')
-    px = IntCol()
-    py = IntCol()
+    PositionX = IntCol()
+    PositionY = IntCol()
+    Map = StringCol()
 
     # from JSON to Dict
     @property
