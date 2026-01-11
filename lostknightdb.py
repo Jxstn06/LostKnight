@@ -54,7 +54,8 @@ class Spieler(SQLObject):
 def create_classes():
     Spieler.createTable(ifNotExists=True)
     Klasse.createTable(ifNotExists=True)
-    if Klasse.tableExists():
+    a = list(Klasse.select())
+    if not a:
         Klasse(
             Name='Beserker',
             Leben=5,
