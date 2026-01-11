@@ -6,8 +6,13 @@ sqlhub.processConnection = connectionForURI('sqlite:LostKnight.sqlite')
 class Klasse(SQLObject):
     Name = StringCol()
     Leben = IntCol(default=0)
+    Mana = IntCol(default=0)
     Kraft = IntCol(default=0)
     Verteidigung = IntCol(default=0)
+    Geschicklichkeit = IntCol(default=0)
+    Intelligenz = IntCol(default=0)
+    Luck = IntCol(default=0)
+    Initiative = IntCol(default=0)
 
 
 class Spieler(SQLObject):
@@ -27,10 +32,12 @@ class Spieler(SQLObject):
     px = IntCol()
     py = IntCol()
 
+    # from JSON to Dict
     @property
     def status(self):
         return json.dumps(self.Status_json)
 
+    # from Dict to JSON saved in self.status
     @status.setter
     def status(self, status):
         self.Status_json = json.dumps(status)
@@ -44,7 +51,7 @@ class Spieler(SQLObject):
 
 
 def create_classes():
-    Spieler.create_table(ifNotExists=True)
+    Spieler.createTable(ifNotExists=True)
     Klasse.createTable(ifNotExists=True)
     if Klasse.tableExists():
         Klasse(
