@@ -29,26 +29,34 @@ class Spieler(SQLObject):
     Luck = IntCol(default=3)
     Initiative = IntCol(default=5)
     Status_json = StringCol(default='{}')
-    PositionX = IntCol()
-    PositionY = IntCol()
-    Dungeon = StringCol()
+    PositionX = IntCol(default=0)
+    PositionY = IntCol(default=0)
+    Dungeon_json = StringCol(default='{}')
 
     # from JSON to Dict
     @property
     def status(self):
-        return json.dumps(self.Status_json)
+        return json.load(self.Status_json)
 
     # from Dict to JSON saved in self.status
     @status.setter
     def status(self, status):
         self.Status_json = json.dumps(status)
 
-    def update_status(self):
-        status = self.Status
-        for name, info in status.items():
-            if 'dauer' in info and info['dauer'] > 0:
-                info['dauer'] -= 1
-        self.status = status
+    # def update_status(self):
+    #     status = self.Status
+    #     for name, info in status.items():
+    #         if 'dauer' in info and info['dauer'] > 0:
+    #             info['dauer'] -= 1
+    #     self.status = status
+
+    @property
+    def dungeon(self):
+        return json.loads(self.Dungeon_json)
+
+    @dungeon.setter
+    def dungeon(self, data):
+        self.Dungeon_json = json.dumps(data)
 
 
 def create_classes():
@@ -66,7 +74,7 @@ def create_classes():
             Intelligenz=0,
             Luck=0,
             Initiative=1
-        ),
+        )
         Klasse(
             Name='Ritter',
             Leben=10,
@@ -77,7 +85,7 @@ def create_classes():
             Intelligenz=2,
             Luck=0,
             Initiative=-2
-        ),
+        )
         Klasse(
             Name='Magier',
             Leben=5,

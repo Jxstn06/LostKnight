@@ -1,16 +1,22 @@
 from Mapstuff.raum import Room
+from lostknightdb import Spieler
+
+Spieler.createTable(ifNotExists=True)
 
 
 class Dungeon:
     def __init__(self, spieler=None):
-        self.rooms = {}
-        self.spieler_x = 0
-        self.spieler_y = 0
-        self.c_room_id = self.get_room_id(0, 0)
+        self.spieler_x = spieler.PositionX
+        self.spieler_y = spieler.PositionY
         self.spieler = spieler
 
-        # spawnraum = self.get_room_id(self.spieler_x, self.spieler_y)
-        # spawnraum.spieler_pos =
+        self.rooms = {}
+        spawnraum = self.get_room_id(self.spieler_x, self.spieler_y)
+        self.rooms[spawnraum] = Room(self.spieler)
+        self.c_room_id = self.rooms[spawnraum]
+
+        # Räume herstellen aus JSON
+        dungeon_rooms = self.spieler.dungeon
 
     # Hatte Fehler mit der nicht static Version
     @staticmethod
@@ -22,3 +28,11 @@ class Dungeon:
         if room_id not in self.rooms:
             self.rooms[room_id] = Room()
         return self.rooms[room_id]
+
+
+# Test
+# spielerwa = Spieler(Name='Justin', Klasse='Schurke')
+# Dung = Dungeon(spieler=spielerwa)
+# print(Dung.rooms)
+# print(Dung.get_room(0, 0))
+# spielerwa.deleteBy(Name='Justin')

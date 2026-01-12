@@ -14,8 +14,7 @@ class Lostknight:
         self.running = True
         self.s = Settings()
         self.screen = pygame.display.set_mode((self.s.monitor_width, self.s.monitor_height))
-        self.clock = pygame.time.Clock()
-
+        self.dt = self.s.dt
         # Manager mit Menu Szene
         self.manager = Manager()
         self.manager.switch_szene(Menu(self.screen, self.manager))
@@ -23,13 +22,12 @@ class Lostknight:
     def run(self):
         while self.running:
             # delta time
-            dt = self.clock.tick(self.s.fps) / 1000
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or event.type == pygame.K_ESCAPE:
                     self.running = False
                 self.manager.handle_events(event)
 
-            self.manager.update(dt)
+            self.manager.update(self.dt)
             self.manager.draw(self.screen)
             pygame.display.flip()
 

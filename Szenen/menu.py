@@ -24,16 +24,16 @@ class Menu(Szene):
                 pygame.quit()
                 sys.exit()
         for button in self.buttons:
-            button.update()
-            if button.handle_events(event):
+            if button.handle_event(event):
                 if button.text == 'Load':
-                    continue
-                if button.text == 'Quit':
+                    pass
+                elif button.text == 'Quit':
                     pygame.quit()
                     sys.exit()
 
     def update(self, dt):
-        pass
+        for button in self.buttons:
+            button.update()
 
     def draw(self, screen):
         self.display.fill(self.s.background_color)

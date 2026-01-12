@@ -15,15 +15,13 @@ class Button:
         self.selected = False
         self.s_color = (210, 210, 0)
 
-    def handle_events(self, event):
+    def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             # Mouseclick
             if self.rect.collidepoint(pygame.mouse.get_pos()):
                 # selected if selectable
                 if self.selectable:
                     self.selected = not self.selected
-                elif self.selectable and self.selected:
-                    self.selected = False
                 else:
                     return True
             # Unselect if Mouseclick happens afo - away from object
