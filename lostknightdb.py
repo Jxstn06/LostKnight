@@ -1,7 +1,9 @@
 from json import dumps, loads
 from sqlobject import *
 
-sqlhub.processConnection = connectionForURI('sqlite:LostKnight.sqlite')
+
+db_path = 'LostKnight.sqlite'
+sqlhub.processConnection = connectionForURI(f'sqlite:{db_path}')
 
 
 class Klasse(SQLObject):
@@ -109,3 +111,5 @@ def create_classes():
             Luck=2,
             Initiative=3
         )
+        berserker = Klasse.selectBy(Name='Berserker').getOne()
+        Spieler(Name='User0', Klasse=berserker)

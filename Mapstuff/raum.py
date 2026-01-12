@@ -61,4 +61,3 @@ class Room:
 
             lines.append(line)
         return '\n'.join(lines)
-

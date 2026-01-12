@@ -11,6 +11,9 @@ class Settings:
         self.monitor_height = pygame.display.Info().current_h
 
         self.background_color = pygame.Color('black')
+        self.buttonsizes = {
+            'big': [self.monitor_width//4, self.monitor_height//10],
+        }
 
         self.raumx = 30
         self.raumy = 10

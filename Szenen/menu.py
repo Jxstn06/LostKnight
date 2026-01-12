@@ -14,8 +14,24 @@ class Menu(Szene):
         self.s = Settings()
 
         self.buttons = [
-            Button(self.s.monitor_width//2-200, self.s.monitor_height//10*3, 400, 50, 'Load', True),
-            Button(self.s.monitor_width // 2 - 200, self.s.monitor_height // 10 * 6, 400, 50, 'Quit')
+            Button(
+                self.s.monitor_width//2 - self.s.buttonsizes['big'][0]/2,
+                self.s.monitor_height//15*5,
+                self.s.buttonsizes['big'][0],
+                self.s.buttonsizes['big'][1],
+                'Load', True, True),
+            Button(
+                self.s.monitor_width // 2 - self.s.buttonsizes['big'][0] / 2,
+                self.s.monitor_height // 15 * 7.5,
+                self.s.buttonsizes['big'][0],
+                self.s.buttonsizes['big'][1],
+                'Settings'),
+            Button(
+                self.s.monitor_width // 2 - self.s.buttonsizes['big'][0]/2,
+                self.s.monitor_height // 15 * 10,
+                self.s.buttonsizes['big'][0],
+                self.s.buttonsizes['big'][1],
+                'Quit')
         ]
 
     def handle_events(self, event):

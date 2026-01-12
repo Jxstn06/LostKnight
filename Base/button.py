@@ -2,7 +2,7 @@ import pygame
 
 
 class Button:
-    def __init__(self, x, y, b, h, text='', selectable=False):
+    def __init__(self, x, y, b, h, text='', selectable=False, is_input=False):
         self.rect = pygame.Rect(x, y, b, h)
         self.text = text
         self.font = pygame.font.Font(None, 32)
@@ -14,6 +14,11 @@ class Button:
         self.selectable = selectable
         self.selected = False
         self.s_color = (210, 210, 0)
+
+        self.is_input = is_input
+
+    def get_value(self):
+        return self.text
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -28,6 +33,11 @@ class Button:
             else:
                 if self.selectable:
                     self.selected = False
+        if event.type == pygame.KEYDOWN and self.selected and self.is_input:
+            if event.key == pygame.K_BACKSPACE:
+                self.text = self.text[:-1]
+            elif len(self.text) < 12:
+                self.text += event.unicode
         return False
 
     def update(self):
