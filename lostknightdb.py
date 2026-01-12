@@ -1,3 +1,4 @@
+from json import dumps, loads
 from sqlobject import *
 
 sqlhub.processConnection = connectionForURI('sqlite:LostKnight.sqlite')
@@ -17,7 +18,7 @@ class Klasse(SQLObject):
 
 class Spieler(SQLObject):
     Name = StringCol()
-    Klasse = StringCol()
+    Klasse = ForeignKey('Klasse')
     Level = IntCol(default=1)
     XP = IntCol(default=0)
     Leben = IntCol(default=20)
@@ -36,15 +37,15 @@ class Spieler(SQLObject):
     # from JSON to Dict
     @property
     def status(self):
-        return json.load(self.Status_json)
+        return loads(self.Status_json)
 
     # from Dict to JSON saved in self.status
     @status.setter
     def status(self, status):
-        self.Status_json = json.dumps(status)
+        self.Status_json = dumps(status)
 
     # def update_status(self):
-    #     status = self.Status
+    #     status = self.status
     #     for name, info in status.items():
     #         if 'dauer' in info and info['dauer'] > 0:
     #             info['dauer'] -= 1
@@ -52,20 +53,20 @@ class Spieler(SQLObject):
 
     @property
     def dungeon(self):
-        return json.loads(self.Dungeon_json)
+        return loads(self.Dungeon_json)
 
     @dungeon.setter
     def dungeon(self, data):
-        self.Dungeon_json = json.dumps(data)
+        self.Dungeon_json = dumps(data)
 
 
 def create_classes():
-    Spieler.createTable(ifNotExists=True)
     Klasse.createTable(ifNotExists=True)
+    Spieler.createTable(ifNotExists=True)
     a = list(Klasse.select())
     if not a:
         Klasse(
-            Name='Beserker',
+            Name='Berserker',
             Leben=5,
             Mana=0,
             Kraft=8,

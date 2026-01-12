@@ -17,6 +17,7 @@ class Dungeon:
 
         # Räume herstellen aus JSON
         dungeon_rooms = self.spieler.dungeon
+        print(dungeon_rooms)
 
     # Hatte Fehler mit der nicht static Version
     @staticmethod
@@ -31,8 +32,8 @@ class Dungeon:
 
 
 # Test
-# spielerwa = Spieler(Name='Justin', Klasse='Schurke')
-# Dung = Dungeon(spieler=spielerwa)
-# print(Dung.rooms)
-# print(Dung.get_room(0, 0))
-# spielerwa.deleteBy(Name='Justin')
+spielerwa = Spieler(Name='Justin', Klasse='Schurke')
+Dung = Dungeon(spieler=spielerwa)
+print(Dung.rooms)
+print(Dung.get_room(0, 0))
+spielerwa.deleteBy(Name='Justin')
