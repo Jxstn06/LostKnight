@@ -13,9 +13,7 @@ class Load(Szene):
         self.manager = manager
         self.s = Settings()
 
-        self.buttons = [
-
-        ]
+        self.buttons = []
 
     def handle_events(self, event): pass
     def update(self, dt): pass
